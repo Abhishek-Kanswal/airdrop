@@ -2,11 +2,17 @@ import React, { useEffect } from 'react';
 import Heading from '../components/ui/Heading';
 import Container from '../components/ui/Container';
 import airdropData from '../components/common/AirdropData';
+import { useSelector} from 'react-redux';
 
 const Airdrop = () => {
   const [activeProject, SetActiveProject] = React.useState([]);
   const [inactiveProject, SetInactiveProject] = React.useState([]);
   const [showPastProject, SetShowPastProject] = React.useState(false);
+
+  const InitialValueTask = () => {
+    const a = useSelector(state => state.task.value)
+    return a
+  }
 
   const chunkArray = (array, size) => {
     const result = [];
@@ -23,6 +29,7 @@ const Airdrop = () => {
 
     SetActiveProject(()=> chunkArray(active, 7))
     SetInactiveProject(()=> chunkArray(inactive, 7))
+    console.log(InitialValueTask)
 
   },[])
 
@@ -37,11 +44,11 @@ const Airdrop = () => {
             <div key={rowIndex} className="flex items-center flex-row">
               {row.map((project, projectIndex) => (
                 <Container
-                  key={projectIndex}
-                  imgUrl={project.logo}
-                  text={project.name}
-                  projectId={project.name}
-                />
+                key={projectIndex}
+                imgUrl={project.logo}
+                text={project.name}
+                projectId={project.name} // Ensure this matches the keys in airdropData
+              />
               ))}
             </div>
           ))}

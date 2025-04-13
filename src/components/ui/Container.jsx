@@ -2,13 +2,20 @@ import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setTaskTrue } from "../../app/features/TaskSlice";
-import airdropData from '../common/AirdropData';
+import airdropData from "../common/AirdropData";
 
 const InnerContainer = ({ imgUrl, projectId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const projectStatus = airdropData[projectId]?.status;
   const taskStatus = useSelector((state) => state.task.value[projectId]);
-  const projectStatus = airdropData[projectId].status;
+  const project = airdropData[projectId];
+
+  if (!project) {
+    console.error(`Project with ID "${projectId}" not found in airdropData.`);
+    return null;
+  }
 
   const clickTimeout = useRef(null);
 
@@ -19,12 +26,11 @@ const InnerContainer = ({ imgUrl, projectId }) => {
   };
 
   const handleDoubleClick = () => {
-
     if (clickTimeout.current) {
       clearTimeout(clickTimeout.current);
       clickTimeout.current = null;
     }
-    dispatch(setTaskTrue(projectId));
+    dispatch(setTaskTrue(projectId)); // Mark task as done
   };
 
   return (
@@ -40,10 +46,11 @@ const InnerContainer = ({ imgUrl, projectId }) => {
           alt="Project Logo"
         />
         <div className="text-2xl font-bold text-[#00ff99] p-2 flex flex-col">
-          <div className={
-            projectStatus ? "mb-2 ml-2 text-[#1c8d62] text-3xl"
-            : "mb-2 ml-2 text-[#ff0000] text-3xl"
-          }>
+          <div
+            className={
+              projectStatus ? "mb-2 ml-2 text-[#1c8d62] text-3xl" : "mb-2 ml-2 text-[#ff0000] text-3xl"
+            }
+          >
             •
           </div>
           <p className="text-center mb-6">{taskStatus ? "✅" : "❌"}</p>

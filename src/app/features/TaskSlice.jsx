@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import airdropData from "../.././components/common/AirdropData";
+import airdropData from "../../components/common/AirdropData";
 
 // Function to load state from localStorage
 const loadState = () => {
@@ -24,7 +24,7 @@ const saveState = (state) => {
 // Load stored state OR set default
 const initialState = {
   value: loadState() || Object.fromEntries(
-    Object.entries(airdropData).map(([key]) => [key, false])
+    Object.entries(airdropData).map(([key]) => [key, false]) // Default all tasks to false
   ),
 };
 
@@ -35,16 +35,18 @@ const TaskSlice = createSlice({
     setTaskTrue: (state, action) => {
       const taskId = action.payload;
       if (state.value[taskId] !== undefined) {
-        state.value[taskId] = true;
-        saveState(state.value); // Save to localStorage
+        state.value[taskId] = true; // Mark the task as done
+        saveState(state.value); // Save updated state to localStorage
+        console.log("Updated TaskSlice State:", state.value);
       }
     },
 
     setTaskReset: (state) => {
       Object.keys(state.value).forEach((key) => {
-        state.value[key] = false;
+        state.value[key] = false; // Reset all tasks to false
       });
       saveState(state.value); // Save reset state to localStorage
+      console.log("TaskSlice State Reset:", state.value);
     },
   },
 });
