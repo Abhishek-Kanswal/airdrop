@@ -305,7 +305,7 @@ const airdropData = {
         name: "Missions",
         status: true,
         date: "2025-03-31",
-        link: "https://dashboard.arch.network/missions"
+        link: "https://fractionai.xyz/dapp"
       }
     }
   },

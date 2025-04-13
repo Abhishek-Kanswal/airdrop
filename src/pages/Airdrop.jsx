@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import Heading from '../components/ui/Heading';
 import Container from '../components/ui/Container';
 import airdropData from '../components/common/AirdropData';
-import { useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleShowPastProject } from '../app/features/ShowPastProject';
 
 const Airdrop = () => {
   const [activeProject, SetActiveProject] = React.useState([]);
   const [inactiveProject, SetInactiveProject] = React.useState([]);
-  const [showPastProject, SetShowPastProject] = React.useState(false);
+  const showPastProject = useSelector(state => state.showPastProject.value);
+  const dispatch = useDispatch();
 
-  const InitialValueTask = () => {
-    const a = useSelector(state => state.task.value)
-    return a
+  const handleShowPastProject = () => {
+    dispatch(toggleShowPastProject());
   }
 
   const chunkArray = (array, size) => {
@@ -29,15 +30,17 @@ const Airdrop = () => {
 
     SetActiveProject(()=> chunkArray(active, 7))
     SetInactiveProject(()=> chunkArray(inactive, 7))
-    console.log(InitialValueTask)
-
   },[])
 
   return (
     <div className="flex w-full min-h-screen bg-gradient-to-r from-[#09090a] to-[rgb(9,9,10)] items-center justify-center p-4">
       <div className="relative h-[700px] w-[80%] rounded-2xl bg-black shadow-[0_4px_10px_rgba(255,255,255,0.1)] border border-gray-600 overflow-hidden">
         
-        <div className="absolute bottom-0 left-0 right-0 h-full overflow-y-auto p-4 bg-[#f8f9fa] rounded-lg">
+        <div className="absolute bottom-0 left-0 right-0 h-full overflow-y-auto p-4 bg-[#f8f9fa] rounded-lg"
+        style={{
+          scrollbarWidth: "none", // For Firefox
+          msOverflowStyle: "none", // For IE/Edge
+        }}>
           <Heading text="Airdrop Projects" />
           
           {activeProject.map((row, rowIndex) => (
@@ -55,7 +58,7 @@ const Airdrop = () => {
   
           <button
             className='bg-gradient-to-r from-[#2a2a2e] to-[#414148] text-[#d3d3d3] font-bold py-2 px-4 rounded-full m-4 hover:bg-[#00cc7a] transition duration-300 ease-in-out'
-            onClick={() => SetShowPastProject(!showPastProject)}
+            onClick={handleShowPastProject}
           >
             {showPastProject ? "Hide Past Projects" : "Show Past Projects"}
           </button>

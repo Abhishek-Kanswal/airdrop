@@ -1,12 +1,9 @@
-import React, { useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setTaskTrue } from "../../app/features/TaskSlice";
 import airdropData from "../common/AirdropData";
 
 const InnerContainer = ({ imgUrl, projectId }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const projectStatus = airdropData[projectId]?.status;
   const taskStatus = useSelector((state) => state.task.value[projectId]);
@@ -17,27 +14,14 @@ const InnerContainer = ({ imgUrl, projectId }) => {
     return null;
   }
 
-  const clickTimeout = useRef(null);
-
   const handleSingleClick = () => {
-    clickTimeout.current = setTimeout(() => {
       navigate(`/airdrop/${projectId}`);
-    }, 250);
-  };
-
-  const handleDoubleClick = () => {
-    if (clickTimeout.current) {
-      clearTimeout(clickTimeout.current);
-      clickTimeout.current = null;
-    }
-    dispatch(setTaskTrue(projectId)); // Mark task as done
   };
 
   return (
     <div
       className="flex items-center justify-center flex-col bg-[rgba(255,255,255,0.1)] m-6 rounded-lg border-2 border-gray-400 transition-all duration-200 hover:bg-[rgba(255,255,255,0.2)] hover:border-gray-400 hover:shadow-[0_0_15px_rgba(128,128,128,0.6)] hover:scale-105 select-none"
       onClick={handleSingleClick}
-      onDoubleClick={handleDoubleClick}
     >
       <div className="flex items-center justify-center flex-row">
         <img
@@ -53,7 +37,10 @@ const InnerContainer = ({ imgUrl, projectId }) => {
           >
             •
           </div>
-          <p className="text-center mb-6">{taskStatus ? "✅" : "❌"}</p>
+          {projectStatus && (
+            <p className="text-center mb-6">{taskStatus ? "✅" : "❌"}</p>
+          )}
+          
         </div>
       </div>
     </div>
