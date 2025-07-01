@@ -1,17 +1,20 @@
 import React from 'react';
-import Navbar from '../components/home/Navbar';
-import Footer from '../components/home/Footer';
+import Navbar from '../components/ui/Navbar';
+import Footer from '../components/ui/Footer';
 import { Outlet } from 'react-router-dom';
+import ScrollToTop from '../components/ui/ScrollToTop';
 
 const RootLayout = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-background text-foreground min-h-screen">
+      <ScrollToTop/>
+
       {/* Navbar */}
       <Navbar />
+      
       {/* Main Content */}
-      <div className="flex-grow">
-        <Outlet />
-      </div>
+      <Outlet />
+      
       {/* Footer */}
       <Footer />
     </div>

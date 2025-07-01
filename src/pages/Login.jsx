@@ -19,7 +19,7 @@ const Login = () => {
 
     if (username === validUsername && password === validPassword) {
       login(); // Set authentication state to true
-      navigate('/airdrop'); // Redirect to the Airdrop page
+      navigate('/app'); // Redirect to the Airdrop page
     } else {
       setError('Invalid username or password');
     }

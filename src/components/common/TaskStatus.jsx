@@ -1,67 +1,52 @@
-import React from 'react';
-import calendarIcon from '../../assets/calender.svg'; // Import the image
-// Removed useNavigate as it's no longer needed for the corrected logic
-import { useDispatch } from 'react-redux';
+import React from "react";
+import calendarIcon from "../../assets/calender.svg";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setTaskTrue } from "../../app/features/TaskSlice";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
-// Destructure id directly from props for clarity
 const TaskStatus = ({ name, status, date, type, link, id }) => {
   const dispatch = useDispatch();
-  const Navigate = useNavigate();
-  
+  const navigate = useNavigate();
+
   const handleMarkDone = () => {
-      dispatch(setTaskTrue(id))
-      Navigate("/airdrop/");
-  };
+  dispatch(setTaskTrue(id)); // Ensure `id` matches the key in Redux state
+  navigate("/app");
+};
 
   return (
-    <div className="border border-gray-300 rounded-lg p-4 w-80 shadow-md bg-white"> {/* Added bg-white for contrast */}
-      {/* Task Name */}
+    <div className="border border-gray-300 rounded-lg p-4 w-80 shadow-md bg-white">
       <h2 className="text-lg font-semibold text-gray-800 mb-2">{name}</h2>
 
-      {/* Status and Date Line */}
       <div className="flex items-center text-sm text-gray-600 mb-3">
-        {/* Status Indicator */}
         <span className={`mr-1 ${status ? "text-green-500" : "text-red-500"}`}>●</span>
-        <p className="mr-4">{status ? "Open" : "Closed"}</p>
-
-        {/* Calendar Icon and Date */}
+        <p className="mr-4">{status ? "Completed" : "Not Done"}</p>
         <img src={calendarIcon} alt="Calendar" className="w-4 h-4 mr-1" />
-        <p>From {date}</p> {/* Changed text slightly for clarity */}
+        <p>From {date}</p>
       </div>
 
-      {/* Task Type and Link Line */}
       <div className="flex items-center justify-between text-sm mb-4">
-         {/* Task Type */}
-         <span
-           className="inline-block bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full" // Changed to rounded-full for consistency? Or keep rounded-md
-         >
-           Type: {type}
-         </span>
-
-         {/* Task Link (if available) */}
-         {link && (
-           <a
-             href={link}
-             target="_blank" // Open in new tab
-             rel="noopener noreferrer" // Security best practice
-             className="text-blue-600 hover:text-blue-800 hover:underline"
-           >
-             Go to Task Link
-           </a>
-         )}
+        <span className="inline-block bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full">
+          Type: {type}
+        </span>
+        {link && (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 hover:underline"
+          >
+            Go to Task Link
+          </a>
+        )}
       </div>
 
-
-      {/* Done Button */}
       <button
-        className='w-full text-sm p-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75' // Improved styling and added focus state
+        disabled={status}
         onClick={handleMarkDone}
-        // Optionally disable if the task is already closed or has no link?
-        // disabled={!status || !link}
+        className={`w-full text-sm p-2 text-white rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 
+        ${status ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"}`}
       >
-        Mark as Done
+        {status ? "Task Completed" : "Mark as Done"}
       </button>
     </div>
   );

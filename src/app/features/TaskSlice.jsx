@@ -23,9 +23,11 @@ const saveState = (state) => {
 
 // Load stored state OR set default
 const initialState = {
-  value: loadState() || Object.fromEntries(
-    Object.entries(airdropData).map(([key]) => [key, false]) // Default all tasks to false
-  ),
+  value:
+    loadState() ||
+    Object.fromEntries(
+      Object.entries(airdropData).map(([key]) => [key, false]) // Default all tasks to false
+    ),
 };
 
 const TaskSlice = createSlice({

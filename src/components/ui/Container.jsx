@@ -1,50 +1,127 @@
-import { useSelector} from "react-redux";
+import React from "react";
+import { Eye, ExternalLink } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useNavigate } from "react-router-dom";
-import airdropData from "../common/AirdropData";
+import { useSelector } from "react-redux";
+import { motion } from "motion/react";
 
-const InnerContainer = ({ imgUrl, projectId }) => {
+const Container = ({ airdrop }) => {
   const navigate = useNavigate();
-
-  const projectStatus = airdropData[projectId]?.status;
-  const taskStatus = useSelector((state) => state.task.value[projectId]);
-  const project = airdropData[projectId];
-
-  if (!project) {
-    console.error(`Project with ID "${projectId}" not found in airdropData.`);
-    return null;
-  }
-
-  const handleSingleClick = () => {
-      navigate(`/airdrop/${projectId}`);
-  };
-
+  const taskStatus = useSelector((state) => state.task.value[airdrop.name]);
   return (
-    <div
-      className="flex items-center justify-center flex-col bg-[rgba(255,255,255,0.1)] m-6 rounded-lg border-2 border-gray-400 transition-all duration-200 hover:bg-[rgba(255,255,255,0.2)] hover:border-gray-400 hover:shadow-[0_0_15px_rgba(128,128,128,0.6)] hover:scale-105 select-none"
-      onClick={handleSingleClick}
+    <motion.Card
+      whileHover={{
+        scale: 1.03,
+        y: -4,
+        boxShadow: "0px 12px 24px rgba(0, 0, 0, 0.12)",
+      }}
+      transition={{
+        duration: 0.2,
+        type: "ease-in-out",
+      }}
+      onClick={() => {
+        navigate(`/app/${airdrop.name}`); // Navigate to the airdrop detail page
+      }}
+      className="overflow-hidden transition-all hover:shadow-md border border-outline max-w-md w-full m-4 bg-background rounded-lg"
     >
-      <div className="flex items-center justify-center flex-row">
-        <img
-          src={imgUrl}
-          className="w-[70px] h-[70px] m-5 rounded-full"
-          alt="Project Logo"
-        />
-        <div className="text-2xl font-bold text-[#00ff99] p-2 flex flex-col">
-          <div
-            className={
-              projectStatus ? "mb-2 ml-2 text-[#1c8d62] text-3xl" : "mb-2 ml-2 text-[#ff0000] text-3xl"
-            }
-          >
-            •
+      <CardContent className="p-0">
+        <div className="p-6">
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center">
+              <div className="h-10 w-10 rounded-full overflow-hidden mr-3 bg-muted flex items-center justify-center">
+                <img
+                  src={airdrop.logo || "/placeholder.svg"}
+                  alt={`${airdrop.name} logo`}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground">
+                  {airdrop.name}
+                </h3>
+                <div className="flex items-center mt-1">
+                  <Badge
+                    className={`text-xs font-normal border ${
+                      airdrop.status === "live"
+                        ? "bg-green-100 text-green-800 border-green-300"
+                        : airdrop.status === "upcoming"
+                        ? "bg-blue-100 text-blue-800 border-blue-300"
+                        : "bg-muted text-muted-foreground border-muted"
+                    }`}
+                  >
+                    {airdrop.status.charAt(0).toUpperCase() +
+                      airdrop.status.slice(1)}
+                  </Badge>
+                  <Badge className="flex items-center justify-center ml-2 text-xs font-normal bg-muted text-muted-foreground border border-muted">
+                    <p className="text-center">{taskStatus ? "✅" : "❌"}</p>
+                  </Badge>
+                </div>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="flex items-center justify-end text-muted-foreground text-xs mb-1">
+                <Eye className="h-3 w-3 mr-1" />
+                {airdrop.views} views
+              </div>
+              <p className="text-lg font-bold text-foreground">
+                <span className="text-sm font-normal text-muted-foreground">
+                  Funding:
+                </span>{" "}
+                {airdrop.funding || "N/A"}
+              </p>
+            </div>
           </div>
-          {projectStatus && (
-            <p className="text-center mb-6">{taskStatus ? "✅" : "❌"}</p>
-          )}
-          
+
+          <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+            {airdrop.details || "No description available."}
+          </p>
+
+          <div className="flex items-center justify-between">
+            <div className="flex flex-wrap gap-1">
+              <TooltipProvider>
+                {airdrop.requirements?.length > 0 ? (
+                  airdrop.requirements.map((req, index) => (
+                    <Tooltip key={index}>
+                      <TooltipTrigger asChild>
+                        <Badge className="bg-muted text-muted-foreground hover:bg-muted/70 cursor-help text-xs">
+                          {req.label}
+                        </Badge>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{req.description}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  ))
+                ) : (
+                  <Badge className="bg-muted text-muted-foreground text-xs">
+                    No tasks
+                  </Badge>
+                )}
+              </TooltipProvider>
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-xs text-foreground border-outline hover:bg-muted"
+            >
+              Details
+              <ExternalLink className="h-3 w-3 ml-1" />
+            </Button>
+          </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </motion.Card>
   );
 };
 
-export default InnerContainer;
+export default Container;

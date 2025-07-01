@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.custom-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+:root {
+  /* Light*/
+  --background: #ffffff;
+  --foreground: #0d0d0d;
+  --primary: #f2a900;
+  --secondary-text: #555555;
+  --toggle-bg: #f6f5f5;
+  --toggle-fg: #f2a900;
+  --outline: #E2E8F0;
+}
+
+[data-theme='dark'] {
+  /* Dark*/
+  --background: #0d0d0d;
+  --foreground: #ffffff;
+  --primary: #f2a900;
+  --secondary-text: #a6a6a6;
+  --toggle-bg: #1a1a1a;
+  --toggle-fg: #f2a900;
+  --outline: #4b5563;
+}

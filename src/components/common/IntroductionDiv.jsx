@@ -16,7 +16,7 @@ const AirdropCard = ({ name, type, logo, website, x, funding, backer }) => {
               href={website}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-200 px-4 py-2 text-lg rounded-lg font-medium flex items-center gap-2"
+              className="bg-toggleBg text-foreground px-4 py-2 text-lg rounded-lg font-medium flex items-center gap-2"
             >
               <img src={browserIcon} alt="Website" className="w-5 h-5" />
               Website
@@ -25,9 +25,9 @@ const AirdropCard = ({ name, type, logo, website, x, funding, backer }) => {
               href={x}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-200 px-4 py-2 text-lg rounded-lg font-medium flex items-center gap-2"
+              className="bg-toggleBg text-foreground px-4 py-2 text-lg rounded-lg font-medium flex items-center gap-2"
             >
-              <img src={xIcon} alt="X (Twitter)" className="w-5 h-5" />
+              <img fill="currentColor"src={xIcon} alt="X (Twitter)" className="w-5 h-5 text-white" />
               Twitter
             </a>
           </div>
