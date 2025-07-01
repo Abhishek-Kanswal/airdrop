@@ -44,7 +44,7 @@ const ProductSection = () => {
             <div className="relative rounded-2xl overflow-hidden backdrop-blur-sm">
               <div className="absolute inset-0 " />
               <img
-                src="src\assets\Blockchain.svg"
+                src="/image/blockchain.svg"
                 alt="Product dashboard"
                 className="w-full hidden md:inline-block"
               />

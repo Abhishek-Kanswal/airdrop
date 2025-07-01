@@ -67,7 +67,7 @@ const Main = () => {
         className="flex items-center justify-center h-1/2 w-full md:w-1/2 md:h-full md:mt-10">
           <img
             className="h-[50vh] md:h-[80vh]"
-            src="src\assets\Bitcoin1.svg"
+            src="/image/bitcoin.svg"
             alt="crypto-img"
           />
         </motion.div>

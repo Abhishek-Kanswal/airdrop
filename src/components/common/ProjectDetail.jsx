@@ -15,8 +15,8 @@ const ProjectDetail = () => {
   }
 
   return (
-    <div className="flex w-full h-full min-h-screen bg-[#09090a] items-center justify-center">
-      <div className="flex flex-col items-center w-[80%] min-h-screen bg-white m-12 rounded-lg">
+    <div className="flex w-full h-full min-h-screen bg-background items-center justify-center">
+      <div className="flex flex-col items-center w-[80%] min-h-screen bg-toggleBg m-12 rounded-lg">
         <IntroductionDiv
           name={project.name}
           type={project.type}
@@ -29,10 +29,10 @@ const ProjectDetail = () => {
 
         <div className="w-[95%] flex-grow m-8 flex flex-col rounded-lg min-h-[300px]">
           <div className="w-full px-6 py-4">
-            <h2 className="text-gray-800 text-2xl font-semibold">
+            <h2 className="text-secondaryText text-2xl font-semibold">
               Instructions for completing tasks and activities for {project.name}
             </h2>
-            <p className="text-gray-600 text-base mt-2">
+            <p className="text-secondaryText text-base mt-2">
               Complete the tasks to qualify for potential {project.name} airdrops and rewards. Follow step-by-step instructions and track task updates and statuses to become one of the potential recipients of the {project.name} Airdrop.
             </p>
           </div>
@@ -52,8 +52,8 @@ const ProjectDetail = () => {
               ))}
             </div>
 
-            <div className="h-full w-[75%] flex-grow flex items-center justify-center text-gray-700 font-medium">
-              <p className="text-center">
+            <div className="h-full w-[75%] flex-grow flex items-center justify-center text-secondaryText-400 font-medium">
+              <p className="text-center text-lg">
                 Follow the instructions provided to complete the tasks and qualify for rewards.
               </p>
             </div>

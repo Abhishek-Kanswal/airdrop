@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-// Placeholder map if not using imports
-const logoMap = {
-  bitcoin: "/src/assets/image/bitcoin.png",
-  ethereum: "/src/assets/image/ethereum.png",
-  solana: "/src/assets/image/solana.png",
-  polkadot: "/src/assets/image/polkadot.png",
-  sui: "/src/assets/image/sui.png",
-};
-
-
 const CryptoPrice = () => {
   const [cryptoData, setCryptoData] = useState([]);
   const coinIds = ["bitcoin", "ethereum", "solana", "polkadot", "sui"];
@@ -27,22 +17,20 @@ const CryptoPrice = () => {
       const data = await response.json();
       const formattedData = Object.keys(data)
         .map((key) => {
-          // Handle cases where data for a coin might be missing
           if (!data[key]) return null;
           return {
-            id: key, // Use the id for key prop later
+            id: key,
             name: key.charAt(0).toUpperCase() + key.slice(1),
-            price: data[key].usd?.toFixed(2) ?? "N/A", // Use optional chaining and nullish coalescing
+            price: data[key].usd?.toFixed(2) ?? "N/A",
             change: data[key].usd_24h_change?.toFixed(2) ?? "N/A",
-            logo: logoMap[key] || '/path/to/default/logo.png' // Use the map or a default
+            logo: `/coins/${key}.png`, // ← load from public/coins/
           };
         })
-        .filter(Boolean); // Remove null entries if any coin data was missing
+        .filter(Boolean);
 
       setCryptoData(formattedData);
     } catch (error) {
       console.error("Error fetching crypto prices:", error);
-      // Optionally set an error state to display to the user
     }
   };
 
@@ -55,7 +43,7 @@ const CryptoPrice = () => {
       <div className="container mx-auto">
         <div className="flex flex-row items-stretch gap-6 md:gap-10 lg:gap-12 overflow-x-auto pb-4 custom-scrollbar">
           {cryptoData.length === 0 && (
-            <p className="text-zinc-500">Loading prices...</p> 
+            <p className="text-zinc-500">Loading prices...</p>
           )}
           {cryptoData.map((crypto) => (
             <div key={crypto.id} className="flex items-center space-x-3 sm:space-x-4 flex-shrink-0">
@@ -67,7 +55,6 @@ const CryptoPrice = () => {
                   onError={(e) => { e.target.style.display = 'none'; }}
                 />
               </div>
-              {/* Crypto Info */}
               <div className="flex flex-col justify-center space-y-1 font-medium">
                 <span className="text-sm sm:text-base text-foreground whitespace-nowrap">{crypto.name}</span>
                 <div className="flex items-center flex-wrap gap-x-2 gap-y-1">

@@ -14,6 +14,7 @@ export default {
         toggleBg: 'var(--toggle-bg)',
         toggleFg: 'var(--toggle-fg)',
         outline: 'var(--outline)',
+        secondaryText: 'var(--secondary-text)',
       },
 	  fontFamily: {
   			sans: [

@@ -14,10 +14,10 @@ const TaskStatus = ({ name, status, date, type, link, id }) => {
 };
 
   return (
-    <div className="border border-gray-300 rounded-lg p-4 w-80 shadow-md bg-white">
-      <h2 className="text-lg font-semibold text-gray-800 mb-2">{name}</h2>
+    <div className="border border-outline rounded-lg p-4 w-80 shadow-md bg-outline">
+      <h2 className="text-lg font-semibold text-foreground mb-2">{name}</h2>
 
-      <div className="flex items-center text-sm text-gray-600 mb-3">
+      <div className="flex items-center text-sm text-foreground mb-3">
         <span className={`mr-1 ${status ? "text-green-500" : "text-red-500"}`}>●</span>
         <p className="mr-4">{status ? "Completed" : "Not Done"}</p>
         <img src={calendarIcon} alt="Calendar" className="w-4 h-4 mr-1" />
@@ -25,7 +25,7 @@ const TaskStatus = ({ name, status, date, type, link, id }) => {
       </div>
 
       <div className="flex items-center justify-between text-sm mb-4">
-        <span className="inline-block bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full">
+        <span className="inline-block text-bold text-foreground text-xs px-3 py-1 rounded-full">
           Type: {type}
         </span>
         {link && (
@@ -33,7 +33,7 @@ const TaskStatus = ({ name, status, date, type, link, id }) => {
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-800 hover:underline"
+            className="text-blue-500 hover:text-blue-800 hover:underline"
           >
             Go to Task Link
           </a>
