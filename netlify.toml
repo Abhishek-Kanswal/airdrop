@@ -2,6 +2,11 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  VITE_SUPABASE_URL = "YOUR_SUPABASE_URL"
+  VITE_SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"
+  SECRETS_SCAN_OMIT_KEYS = "VITE_SUPABASE_URL,VITE_SUPABASE_ANON_KEY"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
