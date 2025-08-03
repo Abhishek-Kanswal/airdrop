@@ -5,7 +5,7 @@ import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 
 const AirdropCard = ({ name, type, logo, website, x, funding, backer }) => {
   // Max number of backers to show directly
-  const MAX_VISIBLE_BACKERS = 3;
+  const MAX_VISIBLE_BACKERS = 2;
 
   const visibleBackers = backer.slice(0, MAX_VISIBLE_BACKERS);
   const hiddenBackers = backer.slice(MAX_VISIBLE_BACKERS);

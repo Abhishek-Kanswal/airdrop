@@ -10,7 +10,7 @@ export function LoginForm({ className, ...props }) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: provider,
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: `${window.location.origin}`,
       },
     });
 
@@ -63,6 +63,7 @@ export function LoginForm({ className, ...props }) {
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <Button
+              type="button"
               onClick={() => signIn("twitter")}
               variant="outline"
               className="w-full border border-outline"
@@ -81,6 +82,7 @@ export function LoginForm({ className, ...props }) {
               Continue with Twitter
             </Button>
             <Button
+            type="button"
               onClick={() => signIn("google")}
               variant="outline"
               className="w-full border border-outline"

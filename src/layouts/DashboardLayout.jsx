@@ -16,7 +16,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import {supabase} from "../../supabaseClient";
+import { supabase } from "../../supabaseClient";
 import { useNavigate } from "react-router-dom";
 
 const DashboardLayout = () => {
@@ -25,14 +25,26 @@ const DashboardLayout = () => {
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({data})=>{
-      if(!data.session) {
-        navigate("/");
+    let active = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (active && !data.session) {
+        navigate("/login");
       } else {
         setLoading(false);
       }
-    })
-  }, [navigate])
+    });
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        if (!session) {
+          navigate("/login");
+        }
+      }
+    );
+    return () => {
+      active = false;
+      listener.subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   if (loading) {
     return null;

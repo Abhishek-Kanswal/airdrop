@@ -23,6 +23,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { useSupabaseUser } from "@/hooks/useSupabaseUser";
 
 const data = {
   user: {
@@ -32,8 +33,8 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
+      name: "Immy Glow",
+      logo: "https://unavatar.io/x/ImmyGlow",
       plan: "Enterprise",
     },
     {
@@ -123,6 +124,9 @@ const data = {
 };
 
 export function AppSidebar(props) {
+  const { userData, loading, error } = useSupabaseUser();
+  console.log("User Data:", userData, loading, error);
+  
   return (
     <Sidebar
       className="border-none shadow-none bg-background"
@@ -138,7 +142,7 @@ export function AppSidebar(props) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userData?.user_metadata} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

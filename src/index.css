@@ -16,7 +16,7 @@
     /* Light Theme */
     --background: #ffffff;
     --foreground: #0d0d0d;
-    --primary: #CFCFCF;
+    --primary: #2E2E38;
     --secondary-text: #555555;
     --toggle-bg: #f6f5f5;
     --toggle-fg: #f2a900;
@@ -37,7 +37,7 @@
     /* Dark Theme */
     --background: #0A0A0A;
     --foreground: #ffffff;
-    --primary: #E5E5E5;
+    --primary: #1F1F2E;
     --secondary-text: #a6a6a6;
     --toggle-bg: #18181B;
     --toggle-fg: #f2a900;

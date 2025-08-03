@@ -117,13 +117,15 @@ const Airdrop = () => {
         {/* <div className="min-h-[20vh] border border-toggleBg rounded-lg p-4 overflow-y-auto bg-toggleBg"></div> */}
 
         {/* Airdrop List */}
-        <div className="min-h-[78vh] border border-toggleBg rounded-lg p-4 overflow-y-auto bg-toggleBg">
+        <div
+          className="min-h-[78vh] border border-toggleBg rounded-lg p-4 overflow-y-auto bg-toggleBg overflow-x-hidden"
+        >
           {paginatedAirdrops.length === 0 ? (
             <div className="text-center text-muted-foreground">
               No airdrops found.
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-stretch">
               {paginatedAirdrops.map((airdrop) => (
                 <Container key={airdrop.id} airdrop={airdrop} />
               ))}
