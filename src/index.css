@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .custom-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -12,24 +11,50 @@
   display: none;
 }
 
-:root {
-  /* Light*/
-  --background: #ffffff;
-  --foreground: #0d0d0d;
-  --primary: #f2a900;
-  --secondary-text: #555555;
-  --toggle-bg: #f6f5f5;
-  --toggle-fg: #f2a900;
-  --outline: #E2E8F0;
-}
+@layer base {
+  :root {
+    /* Light Theme */
+    --background: #ffffff;
+    --foreground: #0d0d0d;
+    --primary: #CFCFCF;
+    --secondary-text: #555555;
+    --toggle-bg: #f6f5f5;
+    --toggle-fg: #f2a900;
+    --outline: #e2e8f0;
 
-[data-theme='dark'] {
-  /* Dark*/
-  --background: #0d0d0d;
-  --foreground: #ffffff;
-  --primary: #f2a900;
-  --secondary-text: #a6a6a6;
-  --toggle-bg: #1a1a1a;
-  --toggle-fg: #f2a900;
-  --outline: #4b5563;
+    /* Sidebar Light Theme */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  [data-theme="dark"] {
+    /* Dark Theme */
+    --background: #0A0A0A;
+    --foreground: #ffffff;
+    --primary: #E5E5E5;
+    --secondary-text: #a6a6a6;
+    --toggle-bg: #18181B;
+    --toggle-fg: #f2a900;
+    --outline: #202020;
+
+    /* Sidebar Dark Theme */
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }

@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import Container from "../components/ui/Container"; // Assumed to be AirdropCard
 import airdrops from "../components/common/AirdropData";
 import { Search, Users, Plus } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 import {
   Pagination,
   PaginationContent,
@@ -11,28 +13,39 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { dailyTaskReset } from "@/app/features/TaskSlice";
 import { useDispatch } from "react-redux";
-import { setTaskReset } from "@/app/features/TaskSlice";
 
 const Airdrop = () => {
-  const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [activeFilter, setActiveFilter] = useState("live");
+  const [searchParam, setSearchParam] = useSearchParams();
+
+  useEffect(() => {
+    if (!searchParam.get("page") || !searchParam.get("filter")) {
+      setSearchParam({ page: "1", filter: "live" });
+    }
+  }, []);
+
+  let pageFromURL = parseInt(searchParam.get("page") || 1);
+  let filterFromURL = searchParam.get("filter") || "live";
+
+  const [currentPage, setCurrentPage] = useState(pageFromURL);
+  const [activeFilter, setActiveFilter] = useState(filterFromURL);
   const pageSize = 9;
   const [searchInput, setSearchInput] = useState("");
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(dailyTaskReset());
+  }, []);
+
   const filteredAirdrops = Object.values(airdrops).filter((airdrop) => {
-    if (airdrop.status.toLowerCase() === activeFilter.toLowerCase()) {
-      if (searchInput.length === 0) {
-        return true;
-      } else if (
-        airdrop.name.toLowerCase().includes(searchInput.toLocaleLowerCase())
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+    const statusMatches =
+      airdrop.status.toLowerCase() === activeFilter.toLowerCase();
+    const nameMatches = airdrop.name
+      .toLowerCase()
+      .includes(searchInput.toLowerCase());
+
+    return statusMatches && (searchInput.trim() === "" || nameMatches);
   });
 
   const paginatedAirdrops = filteredAirdrops.slice(
@@ -41,21 +54,17 @@ const Airdrop = () => {
   );
 
   const totalPage = Math.ceil(filteredAirdrops.length / pageSize);
+  useEffect(() => {
+    setSearchParam({ page: currentPage, filter: activeFilter });
+  }, [activeFilter, currentPage, setSearchParam]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto py-8 px-4">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:justify-between gap-4 mb-8">
           <div>
-            <h1
-              onDoubleClick={() => {
-                dispatch(setTaskReset());
-              }}
-              className="text-4xl font-bold"
-            >
-              Drophunting Dashboard
-            </h1>
+            <h1 className="text-4xl font-bold">Drophunting Dashboard</h1>
             <p className="text-muted-foreground mt-2 max-w-2xl">
               Find and track live airdrops across top chains with verified tasks
               and funding insights.
@@ -92,17 +101,20 @@ const Airdrop = () => {
               </TabsTrigger>
             </TabsList>
           </Tabs>
-          <div className="flex items-center bg-white border border-[#E5E7EB] rounded-md px-3 py-2 max-w-sm w-full">
+          <div className="flex items-center bg-toggleBg border border-outline rounded-md px-3 py-2 max-w-sm w-full">
             <Search className="text-[#9CA3AF]" size={18} />
             <input
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               type="text"
               placeholder="Search airdrops..."
-              className="ml-2 w-full outline-none text-sm text-black"
+              className="ml-2 w-full outline-none text-sm text-black bg-transparent text-foreground placeholder:text-muted-foreground"
             />
           </div>
         </div>
+
+        {/*dashboard*/}
+        {/* <div className="min-h-[20vh] border border-toggleBg rounded-lg p-4 overflow-y-auto bg-toggleBg"></div> */}
 
         {/* Airdrop List */}
         <div className="min-h-[78vh] border border-toggleBg rounded-lg p-4 overflow-y-auto bg-toggleBg">

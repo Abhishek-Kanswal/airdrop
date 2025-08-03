@@ -1,7 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import airdropData from "../../components/common/AirdropData";
 
-// Function to load state from localStorage
+// Add this check temporarily at the top of your slice file or main App
+if (localStorage.getItem("taskState")) {
+  try {
+    const parsed = JSON.parse(localStorage.getItem("taskState"));
+    const isOldFormat = Object.values(parsed)[0] === true || false;
+    if (isOldFormat) {
+      localStorage.removeItem("taskState");
+      console.log("Old localStorage format detected — clearing it.");
+    }
+  } catch (e) {
+    localStorage.removeItem("taskState");
+    console.log("Corrupted taskState — removed.");
+  }
+}
+
 const loadState = () => {
   try {
     const savedState = localStorage.getItem("taskState");
@@ -12,7 +26,6 @@ const loadState = () => {
   }
 };
 
-// Function to save state to localStorage
 const saveState = (state) => {
   try {
     localStorage.setItem("taskState", JSON.stringify(state));
@@ -21,12 +34,14 @@ const saveState = (state) => {
   }
 };
 
-// Load stored state OR set default
 const initialState = {
   value:
     loadState() ||
     Object.fromEntries(
-      Object.entries(airdropData).map(([key]) => [key, false]) // Default all tasks to false
+      Object.entries(airdropData).map(([key]) => [
+        key,
+        { status: false, date: "" },
+      ])
     ),
 };
 
@@ -36,22 +51,33 @@ const TaskSlice = createSlice({
   reducers: {
     setTaskTrue: (state, action) => {
       const taskId = action.payload;
-      if (state.value[taskId] !== undefined) {
-        state.value[taskId] = true; // Mark the task as done
-        saveState(state.value); // Save updated state to localStorage
-        console.log("Updated TaskSlice State:", state.value);
+      if (state.value[taskId]) {
+        state.value[taskId].status = true;
+        state.value[taskId].date = new Date().toISOString().split("T")[0];
+        saveState(state.value);
+      } else {
+        console.log("Before saving:", JSON.parse(JSON.stringify(state.value)));
       }
     },
 
-    setTaskReset: (state) => {
-      Object.keys(state.value).forEach((key) => {
-        state.value[key] = false; // Reset all tasks to false
+    dailyTaskReset: (state) => {
+      let date = new Date().toISOString().split("T")[0];
+      let hasChanged = false;
+
+      Object.entries(state.value).forEach(([key, value]) => {
+        if (value.date && date !== value.date) {
+          state.value[key].status = false;
+          state.value[key].date = date;
+          hasChanged = true;
+        }
       });
-      saveState(state.value); // Save reset state to localStorage
-      console.log("TaskSlice State Reset:", state.value);
+
+      if (hasChanged) {
+        saveState(state.value);
+      }
     },
   },
 });
 
-export const { setTaskTrue, setTaskReset } = TaskSlice.actions;
+export const { setTaskTrue, dailyTaskReset } = TaskSlice.actions;
 export default TaskSlice.reducer;

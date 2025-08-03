@@ -31,7 +31,8 @@ import openseaLogo from "../../assets/icon/tier-2/opensea.jpg";
 import symbioticLogo from "../../assets/icon/tier-2/symbiotic.png";
 import campnetworkLogo from "../../assets/icon/tier-2/camp_network.png";
 
-const airdropData = {"Monad": {
+const airdropData = {
+  "Monad": {
     name: "Monad",
     type: "EVM-Compatible L1",
     status: "live",

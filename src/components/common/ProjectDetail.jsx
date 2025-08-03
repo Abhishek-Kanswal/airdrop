@@ -42,9 +42,9 @@ const ProjectDetail = () => {
               {Object.entries(project.tasks).map(([key, task]) => (
                 <TaskStatus
                   key={key}
-                  id={id} // ✅ project ID
+                  id={project.name} // ✅ project ID
                   name={task.name}
-                  status={taskState[id]} // ✅ project-level status
+                  status={taskState[id]?.status || false} // ✅ project-level status
                   date={task.date}
                   type="airdrop"
                   link={task.link}

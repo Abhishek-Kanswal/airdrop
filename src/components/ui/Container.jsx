@@ -3,6 +3,7 @@ import { Eye, ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress"
 import {
   Tooltip,
   TooltipContent,
@@ -15,7 +16,7 @@ import { motion } from "motion/react";
 
 const Container = ({ airdrop }) => {
   const navigate = useNavigate();
-  const taskStatus = useSelector((state) => state.task.value[airdrop.name]);
+  const taskStatus = useSelector((state) => state.task.value[airdrop.name].status || false);
   return (
     <motion.Card
       whileHover={{
@@ -28,7 +29,8 @@ const Container = ({ airdrop }) => {
         type: "ease-in-out",
       }}
       onClick={() => {
-        navigate(`/app/${airdrop.name}`); // Navigate to the airdrop detail page
+        if(airdrop.status !== "live") return;
+        navigate(`/app/${airdrop.name}`);
       }}
       className="overflow-hidden transition-all hover:shadow-md border border-outline max-w-md w-full m-4 bg-background rounded-lg"
     >
@@ -85,6 +87,10 @@ const Container = ({ airdrop }) => {
             {airdrop.details || "No description available."}
           </p>
 
+          {airdrop.status === "live" && (
+            <Progress className="bg-toggleBg [&>*]:bg-green-500	my-3" value={33} />
+          )}
+
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap gap-1">
               <TooltipProvider>
@@ -103,7 +109,7 @@ const Container = ({ airdrop }) => {
                   ))
                 ) : (
                   <Badge className="bg-muted text-muted-foreground text-xs">
-                    No tasks
+                    {Object.entries(airdrop.tasks).length + (Object.entries(airdrop.tasks).length > 1 ? " Tasks" : " Task")}
                   </Badge>
                 )}
               </TooltipProvider>
