@@ -1,42 +1,8 @@
-import humanityLogo from "../../assets/icon/tier-1/humanity.png";
-import unionLogo from "../../assets/icon/tier-1/union.png";
-import megaEthLogo from "../../assets/icon/tier-1/mega-eth.png";
-import monadLogo from "../../assets/icon/tier-1/monad.png";
-import saharaLogo from "../../assets/icon/tier-1/sahara.png";
-import somniaLogo from "../../assets/icon/tier-1/somnia.png";
-import arciumLogo from "../../assets/icon/tier-2/arcium.png";
-import billionsLogo from "../../assets/icon/tier-2/billions_network.png";
-import newtonLogo from "../../assets/icon/tier-2/newton.png";
-import signLogo from "../../assets/icon/tier-2/sign.png";
-import yalaLogo from "../../assets/icon/tier-2/yala.png";
-import archLogo from "../../assets/icon/tier-2/arch_network.png";
-import lineraLogo from "../../assets/icon/tier-2/linera.png";
-import switchBoardLogo from "../../assets/icon/tier-2/switch_board.jpg";
-import fractionAILogo from "../../assets/icon/tier-2/fraction_ai.png";
-import oneFootballLogo from "../../assets/icon/tier-2/one_football.png";
-import pipeLogo from "../../assets/icon/tier-2/pipe.png";
-import openGradientLogo from "../../assets/icon/tier-2/open_gradient.png";
-import haustNetworkLogo from "../../assets/icon/tier-3/haust_network.png";
-import gizaLogo from "../../assets/icon/tier-3/giza.png";
-import momentumLogo from "../../assets/icon/tier-3/momentum.png";
-import bit77HubLogo from "../../assets/icon/tier-3/bit77_hub.jpg";
-import xosLogo from "../../assets/icon/tier-3/xos.jpg";
-import pharosLogo from "../../assets/icon/tier-2/pharos.png";
-import zamaLogo from "../../assets/icon/tier-2/zama.jpg";
-import mawariLogo from "../../assets/icon/tier-2/mawari.jpg";
-import gteLogo from "../../assets/icon/tier-2/gte.jpg";
-import irysLogo from "../../assets/icon/tier-2/irys.jpg";
-import pushchainLogo from "../../assets/icon/tier-2/pushchain.jpg";
-import openseaLogo from "../../assets/icon/tier-2/opensea.jpg";
-import symbioticLogo from "../../assets/icon/tier-2/symbiotic.png";
-import campnetworkLogo from "../../assets/icon/tier-2/camp_network.png";
-
 const airdropData = {
   "Monad": {
     name: "Monad",
     type: "EVM-Compatible L1",
     status: "live",
-    logo: monadLogo,
     website: "https://testnet.monad.xyz/",
     x: "https://x.com/monad_xyz",
     funding: "$244.00M",
@@ -55,7 +21,6 @@ const airdropData = {
     name: "Zama",
     type: "Confidential Blockchain Protocol",
     status: "live",
-    logo: zamaLogo,
     website: "https://www.zama.ai/",
     x: "https://x.com/zama_fhe",
     funding: "$130.00M",
@@ -74,7 +39,6 @@ const airdropData = {
     name: "Mega ETH",
     type: "Ethereum Scaling",
     status: "live",
-    logo: megaEthLogo,
     website: "https://testnet.megaeth.com/",
     x: "https://x.com/MegaETH_",
     funding: "$37.73M",
@@ -93,7 +57,6 @@ const airdropData = {
     name: "Pharos",
     type: "L-1 Chain",
     status: "live",
-    logo: pharosLogo,
     website: "https://pharosnetwork.xyz/",
     x: "https://x.com/pharos_network",
     funding: "$8.00M",
@@ -112,7 +75,6 @@ const airdropData = {
     name: "Mawari",
     type: "Compute Network",
     status: "live",
-    logo: mawariLogo,
     website: "https://mawari.net/",
     x: "https://x.com/mawariXR",
     funding: "$17.30M",
@@ -131,7 +93,6 @@ const airdropData = {
     name: "Irys",
     type: "Blockchain Infrastructure",
     status: "live",
-    logo: irysLogo,
     website: "https://irys.xyz/",
     x: "https://x.com/irys_xyz",
     funding: "$8.90M",
@@ -150,7 +111,6 @@ const airdropData = {
     name: "GTE",
     type: "DeFi",
     status: "live",
-    logo: gteLogo,
     website: "https://www.gte.xyz/",
     x: "https://x.com/GTE_XYZ",
     funding: "$25.94M",
@@ -169,7 +129,6 @@ const airdropData = {
     name: "Momentum",
     type: "DeFi Options",
     status: "live",
-    logo: momentumLogo,
     website: "https://app.mmt.finance/trade",
     x: "https://x.com/MMTFinance",
     funding: "$10.00M",
@@ -188,7 +147,6 @@ const airdropData = {
     name: "OpenSea",
     type: "NFT Marketplace",
     status: "live",
-    logo: openseaLogo,
     website: "https://opensea.io/",
     x: "https://x.com/pharos_network",
     funding: "$425.15M",
@@ -207,7 +165,6 @@ const airdropData = {
     name: "Humanity Protocol",
     type: "Identity Verification",
     status: "ended",
-    logo: humanityLogo,
     website: "https://testnet.humanity.org/dashboard",
     x: "https://x.com/humanityprot",
     funding: "$50M",
@@ -226,7 +183,6 @@ const airdropData = {
     name: "Sahara Ai",
     type: "AI Training Platform",
     status: "ended",
-    logo: saharaLogo,
     website: "https://legends.saharalabs.ai/",
     x: "https://x.com/SaharaLabsAI",
     funding: "$51.50M",
@@ -245,7 +201,6 @@ const airdropData = {
     name: "OneFootball",
     type: "Sports Metaverse",
     status: "live",
-    logo: oneFootballLogo,
     website: "https://ofc.onefootball.com/s2/",
     x: "https://x.com/OneFootball",
     funding: "$307.00M",
@@ -264,7 +219,6 @@ const airdropData = {
     name: "Billions Network",
     type: "Web3 Infrastructure",
     status: "live",
-    logo: billionsLogo,
     website: "https://signup.billions.network/",
     x: "https://x.com/billions_ntwk",
     funding: "",
@@ -283,7 +237,6 @@ const airdropData = {
     name: "Pushchain",
     type: "Blockchain Service",
     status: "live",
-    logo: pushchainLogo,
     website: "https://push.org/",
     x: "https://x.com/PushChain",
     funding: "$11.97M",
@@ -302,7 +255,6 @@ const airdropData = {
     name: "Union",
     type: "Interoperability Protocol",
     status: "live",
-    logo: unionLogo,
     website: "",
     x: "https://x.com/union_build",
     funding: "$16.00M",
@@ -321,7 +273,6 @@ const airdropData = {
     name: "Camp Network",
     type: "NFT Marketplace",
     status: "live",
-    logo: campnetworkLogo,
     website: "https://www.campnetwork.xyz/",
     x: "https://x.com/campnetworkxyz",
     funding: "$29.00M",
@@ -340,7 +291,6 @@ const airdropData = {
     name: "Somnia",
     type: "Metaverse Protocol",
     status: "live",
-    logo: somniaLogo,
     website: "https://testnet.somnia.network/",
     x: "https://x.com/Somnia_Network",
     funding: "$270M",
@@ -359,7 +309,6 @@ const airdropData = {
     name: "Arcium",
     type: "Confidential Computing",
     status: "live",
-    logo: arciumLogo,
     website: "https://gmpcworld.webflow.io/vote-now",
     x: "https://x.com/ArciumHQ",
     funding: "$14.00M",
@@ -378,7 +327,6 @@ const airdropData = {
     name: "Newton",
     type: "Blockchain Explorer",
     status: "ended",
-    logo: newtonLogo,
     website: "https://www.magicnewton.com/portal",
     x: "https://x.com/MagicNewton",
     funding: "",
@@ -397,7 +345,6 @@ const airdropData = {
     name: "Sign",
     type: "Digital Signatures",
     status: "ended",
-    logo: signLogo,
     website: "https://sign.global/orange-dynasty",
     x: "https://x.com/ethsign",
     funding: "",
@@ -416,7 +363,6 @@ const airdropData = {
     name: "Yala",
     type: "SocialFi Platform",
     status: "ended",
-    logo: yalaLogo,
     website: "https://app-testnet-v3.yala.org/",
     x: "https://x.com/yalaorg",
     funding: "",
@@ -435,7 +381,6 @@ const airdropData = {
     name: "Arch Network",
     type: "ZK-Rollups",
     status: "ended",
-    logo: archLogo,
     website: "https://dashboard.arch.network/",
     x: "https://x.com/ArchNtwrk",
     funding: "",
@@ -454,7 +399,6 @@ const airdropData = {
     name: "Linera",
     type: "Microchains Protocol",
     status: "live",
-    logo: lineraLogo,
     website: "",
     x: "https://x.com/linera_io",
     funding: "$12.00M",
@@ -473,7 +417,6 @@ const airdropData = {
     name: "SwitchBoard",
     type: "Oracle Network",
     status: "ended",
-    logo: switchBoardLogo,
     website: "",
     x: "https://x.com/switchboardxyz",
     funding: "",
@@ -492,7 +435,6 @@ const airdropData = {
     name: "Fraction Ai",
     type: "NFT Fractionalization",
     status: "ended",
-    logo: fractionAILogo,
     website: "https://fractionai.xyz/dapp",
     x: "https://x.com/FractionAI_xyz",
     funding: "",
@@ -511,7 +453,6 @@ const airdropData = {
     name: "Pipe",
     type: "Liquid Staking",
     status: "ended",
-    logo: pipeLogo,
     website: "",
     x: "https://x.com/pipenetwork",
     funding: "",
@@ -530,7 +471,6 @@ const airdropData = {
     name: "Open Gradient",
     type: "AI Data Marketplace",
     status: "ended",
-    logo: openGradientLogo,
     website: "",
     x: "https://x.com/OpenGradient",
     funding: "",
@@ -549,7 +489,6 @@ const airdropData = {
     name: "Haust",
     type: "Social Network",
     status: "ended",
-    logo: haustNetworkLogo,
     website: "",
     x: "https://x.com/HaustNetwork",
     funding: "",
@@ -568,7 +507,6 @@ const airdropData = {
     name: "Giza",
     type: "AI Oracle",
     status: "ended",
-    logo: gizaLogo,
     website: "https://giza.megaphone.xyz/campaign",
     x: "https://x.com/gizatechxyz",
     funding: "",
@@ -587,7 +525,6 @@ const airdropData = {
     name: "Bit77Hub",
     type: "Crypto Exchange",
     status: "ended",
-    logo: bit77HubLogo,
     website: "https://bithub.77-bit.com/",
     x: "https://x.com/the77bit",
     funding: "",
@@ -606,7 +543,6 @@ const airdropData = {
     name: "XOS",
     type: "Layer1 Blockchain",
     status: "ended",
-    logo: xosLogo,
     website: "https://x.ink/airdrop",
     x: "https://x.com/xos_labs",
     funding: "",
@@ -625,7 +561,6 @@ const airdropData = {
     name: "Symbiotic",
     type: "L-1 Chain",
     status: "live",
-    logo: symbioticLogo,
     website: "https://pharosnetwork.xyz/",
     x: "https://x.com/pharos_network",
     funding: "$34.80M",

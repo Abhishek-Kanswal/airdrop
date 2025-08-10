@@ -50,7 +50,7 @@ export function NavProjects({ projects }) {
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="w-48 rounded-lg"
+                className="w-48 rounded-lg bg-background text-foreground shadow-lg border border-outline"
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}
               >

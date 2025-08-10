@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress"
+import { Progress } from "@/components/ui/progress";
 import {
   Tooltip,
   TooltipContent,
@@ -16,7 +16,11 @@ import { motion } from "motion/react";
 
 const Container = ({ airdrop }) => {
   const navigate = useNavigate();
-  const taskStatus = useSelector((state) => state.task.value[airdrop.name].status || false);
+
+  const taskStatus = useSelector(
+    (state) => state.task.value[airdrop.name]?.status || false
+  );
+
   return (
     <motion.Card
       whileHover={{
@@ -24,13 +28,10 @@ const Container = ({ airdrop }) => {
         y: -4,
         boxShadow: "0px 12px 24px rgba(0, 0, 0, 0.12)",
       }}
-      transition={{
-        duration: 0.2,
-        type: "ease-in-out",
-      }}
+      transition={{ duration: 0.2, type: "ease-in-out" }}
       onClick={() => {
-        if(airdrop.status !== "live") return;
-        navigate(`/app/${airdrop.name}`);
+        if (airdrop.status !== "live") return;
+        navigate(`/airdrop/${airdrop.name}`);
       }}
       className="overflow-hidden transition-all hover:shadow-md border border-outline max-w-md w-full m-4 bg-background rounded-lg"
     >
@@ -39,12 +40,12 @@ const Container = ({ airdrop }) => {
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center">
               <div className="h-10 w-10 rounded-full overflow-hidden mr-3 bg-muted flex items-center justify-center">
-                <img
-                  src={airdrop.logo || "/placeholder.svg"}
-                  alt={`${airdrop.name} logo`}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
+                  <img
+                    src={airdrop.logoObjectUrl}
+                    alt={`${airdrop.logoObjectUrl} logo`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground">
@@ -69,6 +70,7 @@ const Container = ({ airdrop }) => {
                 </div>
               </div>
             </div>
+
             <div className="text-right">
               <div className="flex items-center justify-end text-muted-foreground text-xs mb-1">
                 <Eye className="h-3 w-3 mr-1" />
@@ -88,7 +90,10 @@ const Container = ({ airdrop }) => {
           </p>
 
           {airdrop.status === "live" && (
-            <Progress className="bg-toggleBg [&>*]:bg-green-500	my-3" value={33} />
+            <Progress
+              className="bg-toggleBg [&>*]:bg-green-500	my-3"
+              value={33}
+            />
           )}
 
           <div className="flex items-center justify-between">
@@ -109,7 +114,10 @@ const Container = ({ airdrop }) => {
                   ))
                 ) : (
                   <Badge className="bg-muted text-muted-foreground text-xs">
-                    {Object.entries(airdrop.tasks).length + (Object.entries(airdrop.tasks).length > 1 ? " Tasks" : " Task")}
+                    {Object.entries(airdrop.tasks).length +
+                      (Object.entries(airdrop.tasks).length > 1
+                        ? " Tasks"
+                        : " Task")}
                   </Badge>
                 )}
               </TooltipProvider>

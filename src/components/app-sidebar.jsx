@@ -125,7 +125,6 @@ const data = {
 
 export function AppSidebar(props) {
   const { userData, loading, error } = useSupabaseUser();
-  console.log("User Data:", userData, loading, error);
   
   return (
     <Sidebar

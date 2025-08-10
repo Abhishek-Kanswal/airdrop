@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import Container from "../components/ui/Container"; // Assumed to be AirdropCard
-import airdrops from "../components/common/AirdropData";
+import { useState, useEffect } from "react";
+import Container from "../components/ui/Container";
 import { Search, Users, Plus } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -14,10 +12,34 @@ import {
 } from "@/components/ui/pagination";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { dailyTaskReset } from "@/app/features/TaskSlice";
-import { useDispatch } from "react-redux";
+import { fetchAirdropData } from "../app/features/AirdropSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Airdrop = () => {
+  const dispatch = useDispatch();
+  const {
+    value: airdrops,
+    loading,
+    error,
+  } = useSelector((state) => state.airdrop);
   const [searchParam, setSearchParam] = useSearchParams();
+
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(searchParam.get("page") || 1)
+  );
+  const [activeFilter, setActiveFilter] = useState(
+    searchParam.get("filter") || "live"
+  );
+  const [searchInput, setSearchInput] = useState("");
+  const pageSize = 9;
+
+  useEffect(() => {
+    if (!airdrops || airdrops.length === 0) {
+      dispatch(fetchAirdropData());
+    }
+
+    dispatch(dailyTaskReset());
+  }, [dispatch, airdrops]);
 
   useEffect(() => {
     if (!searchParam.get("page") || !searchParam.get("filter")) {
@@ -25,38 +47,23 @@ const Airdrop = () => {
     }
   }, []);
 
-  let pageFromURL = parseInt(searchParam.get("page") || 1);
-  let filterFromURL = searchParam.get("filter") || "live";
-
-  const [currentPage, setCurrentPage] = useState(pageFromURL);
-  const [activeFilter, setActiveFilter] = useState(filterFromURL);
-  const pageSize = 9;
-  const [searchInput, setSearchInput] = useState("");
-
-  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(dailyTaskReset());
-  }, []);
+    setSearchParam({ page: currentPage, filter: activeFilter });
+  }, [currentPage, activeFilter]);
 
-  const filteredAirdrops = Object.values(airdrops).filter((airdrop) => {
-    const statusMatches =
-      airdrop.status.toLowerCase() === activeFilter.toLowerCase();
-    const nameMatches = airdrop.name
-      .toLowerCase()
-      .includes(searchInput.toLowerCase());
-
-    return statusMatches && (searchInput.trim() === "" || nameMatches);
-  });
+  const filteredAirdrops =
+    airdrops?.filter(
+      (airdrop) =>
+        airdrop.status.toLowerCase() === activeFilter.toLowerCase() &&
+        (searchInput.trim() === "" ||
+          airdrop.name.toLowerCase().includes(searchInput.toLowerCase()))
+    ) || [];
 
   const paginatedAirdrops = filteredAirdrops.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-
   const totalPage = Math.ceil(filteredAirdrops.length / pageSize);
-  useEffect(() => {
-    setSearchParam({ page: currentPage, filter: activeFilter });
-  }, [activeFilter, currentPage, setSearchParam]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -87,18 +94,15 @@ const Airdrop = () => {
           <Tabs
             defaultValue="live"
             value={activeFilter}
-            onValueChange={setActiveFilter}
+            onValueChange={(val) => {
+              setActiveFilter(val);
+              setCurrentPage(1);
+            }}
           >
             <TabsList className="bg-toggleBg border border-outline p-1 rounded-md">
-              <TabsTrigger onClick={() => setCurrentPage(1)} value="live">
-                Live
-              </TabsTrigger>
-              <TabsTrigger onClick={() => setCurrentPage(1)} value="upcoming">
-                Upcoming
-              </TabsTrigger>
-              <TabsTrigger onClick={() => setCurrentPage(1)} value="ended">
-                Ended
-              </TabsTrigger>
+              <TabsTrigger value="live">Live</TabsTrigger>
+              <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+              <TabsTrigger value="ended">Ended</TabsTrigger>
             </TabsList>
           </Tabs>
           <div className="flex items-center bg-toggleBg border border-outline rounded-md px-3 py-2 max-w-sm w-full">
@@ -108,19 +112,18 @@ const Airdrop = () => {
               onChange={(e) => setSearchInput(e.target.value)}
               type="text"
               placeholder="Search airdrops..."
-              className="ml-2 w-full outline-none text-sm text-black bg-transparent text-foreground placeholder:text-muted-foreground"
+              className="ml-2 w-full outline-none text-sm bg-transparent text-foreground placeholder:text-muted-foreground"
             />
           </div>
         </div>
 
-        {/*dashboard*/}
-        {/* <div className="min-h-[20vh] border border-toggleBg rounded-lg p-4 overflow-y-auto bg-toggleBg"></div> */}
-
         {/* Airdrop List */}
-        <div
-          className="min-h-[78vh] border border-toggleBg rounded-lg p-4 overflow-y-auto bg-toggleBg overflow-x-hidden"
-        >
-          {paginatedAirdrops.length === 0 ? (
+        <div className="min-h-[78vh] border border-toggleBg rounded-lg p-4 overflow-y-auto bg-toggleBg overflow-x-hidden">
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p className="text-red-500">{error}</p>
+          ) : paginatedAirdrops.length === 0 ? (
             <div className="text-center text-muted-foreground">
               No airdrops found.
             </div>

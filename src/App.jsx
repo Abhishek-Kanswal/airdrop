@@ -10,17 +10,19 @@ import {
 import Home from "./pages/Home";
 import Test from "./pages/Test";
 import Airdrop from "./pages/Airdrop";
-import ProjectDetail from "./components/common/ProjectDetail";
+import ProjectDetail from "./pages/AirdropDetail";
 import Login from "./pages/Login";
+import ListDetail from "./pages/ListDetail";
 
 function App() {
   const routes = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route path="/" element={<DashboardLayout />}>
-          <Route index element={<Airdrop />} />
-          <Route path="app/:id" element={<ProjectDetail />} />
+          <Route path="/airdrop" element={<Airdrop />} />
+          <Route path="airdrop/:id" element={<ProjectDetail />} />
           <Route path="app/test" element={<Test />} />
+          <Route path="/list/:id" element={<ListDetail />} />
         </Route>
         <Route path="/" element={<RootLayout />}>
           <Route path="home" element={<Home />} />

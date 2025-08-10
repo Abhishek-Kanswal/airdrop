@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Function to get the initial theme from localStorage or default
 const getInitialTheme = () => {
     try {
         const storedTheme = localStorage.getItem("theme");
